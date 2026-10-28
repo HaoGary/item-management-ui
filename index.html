@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>發放設定</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/settings.css">
+
+  <script src="js/icons.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/config.js" defer></script>
+  <script src="js/components/amount-field.js" defer></script>
+  <script src="js/sections/item-name.js" defer></script>
+  <script src="js/sections/subsidy.js" defer></script>
+  <script src="js/sections/send-methods.js" defer></script>
+  <script src="js/sections/send-mode.js" defer></script>
+  <script src="js/sections/combos.js" defer></script>
+  <script src="js/views/combo-list.js" defer></script>
+  <script src="js/sections/preview-page.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+<form id="settings" novalidate>
+  <!-- 項目名稱 -->
+  <section class="row">
+    <div class="row-inner row-inner--top">
+      <label class="label" for="itemName">項目名稱<span class="label-required">*</span></label>
+      <div class="field field--block">
+        <input type="text" class="field-input" id="itemName" maxlength="10" placeholder="請輸入內容" autocomplete="off">
+        <span class="field-counter" id="itemNameCount">0/10</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 補助對象與金額 -->
+  <section class="row">
+    <div class="row-inner row-inner--top">
+      <div class="label">補助對象與金額<span class="label-required">*</span></div>
+      <div class="subsidy-col">
+        <div class="subsidy-list" id="subList"></div>
+        <div class="add-row">
+          <div class="add-row-spacer"></div>
+          <button type="button" class="btn-radius" id="subAdd">
+            <span class="btn-radius-icon"><svg width="19.2" height="19.2"><use href="#i-add"/></svg></span>新增欄位
+          </button>
+          <span class="count" id="subCount">2/5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 申請方式 -->
+  <section class="row">
+    <div class="row-inner">
+      <div class="label">申請方式<span class="label-required">*</span></div>
+      <div class="radio-group" role="radiogroup" aria-label="申請方式">
+        <label class="radio">
+          <input type="radio" class="radio-input" name="applyMode" value="self">
+          <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
+          <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
+          自行申請
+        </label>
+        <label class="radio">
+          <input type="radio" class="radio-input" name="applyMode" value="auto" checked>
+          <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
+          <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
+          公司統一發放
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 發送方式：決定「發送設定」與「發送配置」的可用方式 -->
+  <section class="row">
+    <div class="row-inner row-inner--top">
+      <div class="label">發送方式<span class="label-required">*</span></div>
+      <div class="mode-col">
+        <div class="radio-group radio-group--control" role="radiogroup" aria-label="發送方式">
+          <label class="radio">
+            <input type="radio" class="radio-input" name="sendMode" value="options" checked>
+            <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
+            <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
+            選項分配
+          </label>
+          <label class="radio">
+            <input type="radio" class="radio-input" name="sendMode" value="fixed">
+            <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
+            <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
+            固定選項
+          </label>
+        </div>
+        <p class="row-hint">此項目的設定將決定「發送設定」的可配置方式</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 發送設定（刪除鈕在左） -->
+  <section class="row" id="sendRow">
+    <div class="row-inner row-inner--top">
+      <div class="label">發送設定<span class="label-required">*</span></div>
+      <div class="send-methods send-methods--aligned">
+        <div class="option-group option-group--fixed" id="fixedGroup"></div>
+        <div class="option-group">
+          <div class="option-group option-group--dynamic" id="dynamicGroup" data-delete-position="start"></div>
+          <div class="add-row">
+            <div class="add-row-spacer"></div>
+            <button type="button" class="btn-radius" id="dynAdd">
+              <span class="btn-radius-icon"><svg width="19.2" height="19.2"><use href="#i-add"/></svg></span>新增欄位
+            </button>
+            <span class="count" id="dynCount">1/5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 發送配置（清單樣式；發送方式＝固定選項時隱藏） -->
+  <section class="row" id="comboRow">
+    <div class="row-inner row-inner--top">
+      <div class="label">發送配置</div>
+      <div class="combo-col">
+        <div class="combo-head">
+          <div class="select">
+            <select class="select-control" id="comboSize" aria-label="每組項目數"></select>
+            <svg class="select-arrow" width="19.2" height="19.2"><use href="#i-dropdown"/></svg>
+          </div>
+          <button type="button" class="btn-com btn-com--outline" id="comboConfigBtn">配置</button>
+        </div>
+        <div class="combo-hint" id="comboHint"></div>
+        <div class="combo-list" id="comboList" data-view="list"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button type="button" class="btn-com btn-com--outline" id="cancelBtn">取消</button>
+    <button type="submit" class="btn-com btn-com--primary">確認</button>
+  </div>
+</form>
+
+<!-- 預覽頁：點擊「確認」後顯示員工申請畫面（Figma「預覽頁面」） -->
+<section class="preview-page" id="previewPage" hidden aria-label="預覽">
+  <div class="row">
+    <div class="row-inner">
+      <label class="label" for="pvItem">申請項目<span class="label-required">*</span></label>
+      <div class="select select--preview">
+        <select class="select-control" id="pvItem"></select>
+        <svg class="select-arrow" width="19.2" height="19.2"><use href="#i-dropdown"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-inner">
+      <label class="label" for="pvTarget">補助對象<span class="label-required">*</span></label>
+      <div class="select select--preview">
+        <select class="select-control" id="pvTarget"></select>
+        <svg class="select-arrow" width="19.2" height="19.2"><use href="#i-dropdown"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-inner">
+      <div class="label">請款金額</div>
+      <div class="preview-value" id="pvAmount"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-inner">
+      <label class="label" for="pvMethod">領取方式<span class="label-required">*</span></label>
+      <div class="select select--preview">
+        <select class="select-control" id="pvMethod"></select>
+        <svg class="select-arrow" width="19.2" height="19.2"><use href="#i-dropdown"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn-com btn-com--outline" id="pvBack">上一步</button>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>

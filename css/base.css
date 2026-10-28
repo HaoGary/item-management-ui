@@ -1,0 +1,25 @@
+/* ==========================================================================
+   基礎樣式：全域 box-sizing、頁面字體與背景
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  font-family: var(--font-family);
+  color: var(--color-text-main);
+}
+
+button {
+  font-family: inherit;
+}
+
+/* SVG 圖示 sprite（由 js/icons.js 插入），本身不佔版面 */
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+}

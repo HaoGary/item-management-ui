@@ -1,0 +1,60 @@
+/* ==========================================================================
+   設計變數（Design Tokens）
+   對應 Figma「Hsihung ERP Design System」的色彩、字體、間距、圓角與陰影。
+   所有元件與頁面樣式都應引用這裡的變數，不直接寫死數值。
+   ========================================================================== */
+
+:root {
+  /* ---------- 色彩：品牌 ---------- */
+  --color-primary: #2ebbb8;               /* primary/main：勾選框、焦點框、新增圖示 */
+  --color-primary-strong: #00a19f;        /* button/main/default：主要按鈕 */
+  --color-primary-strong-hover: #008f8d;
+
+  /* ---------- 色彩：文字 ---------- */
+  --color-text-main: #333;
+  --color-text-secondary: #666;
+  --color-text-muted: #999;
+  --color-text-danger: #f7595a;
+  --color-text-inverse: #fff;
+  --color-text-primary: #008381;          /* primary/maintext：說明文字 */
+  --color-text-strong: #212121;           /* 預覽頁數值 */
+
+  /* ---------- 色彩：線條與背景 ---------- */
+  --color-border: #c4c4c4;                /* 輸入框、外框按鈕 */
+  --color-line: #efefef;                  /* table/line：分隔線 */
+  --color-bg: #fff;
+  --color-bg-disabled: #f7f7f7;
+  --color-icon-hover: rgba(111, 121, 120, 0.08);
+  --color-toast-bg: #333;
+
+  /* ---------- 字體 ---------- */
+  --font-family: 'Noto Sans TC', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-preview: 15px;              /* 預覽頁欄位名稱與數值 */
+  --font-size-lg: 16px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --line-height-base: 1.5;
+
+  /* ---------- 尺寸 ---------- */
+  --control-height: 40px;                 /* 輸入框、選單、按鈕 */
+  --control-height-sm: 32px;
+  --icon-button-size: 40px;
+  --checkbox-size: 24px;
+  --field-width: 160px;                   /* 金額欄位 */
+  --label-width: 150px;                   /* 左側欄位名稱 */
+  --content-max-width: 384px;             /* 右側內容欄 */
+  --page-padding-x: 40px;
+  --page-padding-x-mobile: 16px;
+
+  /* ---------- 圓角 ---------- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-pill: 999px;
+
+  /* ---------- 動態 ---------- */
+  --transition-fast: 0.15s;
+  --transition-base: 0.2s;
+}

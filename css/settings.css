@@ -1,0 +1,233 @@
+/* ==========================================================================
+   發放設定頁：補助對象與金額、發送方式、發送配置（清單樣式）
+   ========================================================================== */
+
+/* ---------- 預覽頁（員工申請畫面） ---------- */
+.preview-page[hidden],
+#settings[hidden] {
+  display: none;
+}
+
+.preview-page .label {
+  font-size: var(--font-size-preview);
+}
+
+.select--preview {
+  flex: 0 0 240px;
+}
+
+.preview-value {
+  display: flex;
+  align-items: center;
+  width: 240px;
+  height: var(--control-height);
+  font-size: var(--font-size-preview);
+  color: var(--color-text-strong);
+}
+
+/* ---------- 發送方式（選項分配／固定選項） ---------- */
+.mode-col {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* 與輸入框同高，讓單選與左側欄位名稱垂直置中對齊 */
+.radio-group--control {
+  height: var(--control-height);
+}
+
+.row-hint {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.row[hidden] {
+  display: none;
+}
+
+/* ---------- 補助對象與金額 ---------- */
+.subsidy-col {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 10px;
+  max-width: var(--content-max-width);
+}
+
+.subsidy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subsidy-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- 新增欄位列（左側保留刪除鈕寬度） ---------- */
+.add-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-row-spacer {
+  flex-shrink: 0;
+  width: var(--icon-button-size);
+  height: var(--icon-button-size);
+}
+
+/* ---------- 發送方式 ---------- */
+.send-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.option-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 自訂項目：勾選框＋名稱 */
+.option-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-name {
+  width: 100px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-main);
+}
+
+/* 自訂項目（其他N）名稱可直接編輯 */
+.option-name-input {
+  width: 100px;
+  height: var(--control-height-sm);
+  padding: 0;
+  border: 0;
+  border-bottom: 1px dashed transparent;
+  outline: none;
+  background: transparent;
+  font: var(--font-weight-medium) var(--font-size-md) var(--font-family);
+  color: var(--color-text-main);
+}
+
+.option-name-input:hover {
+  border-bottom-color: var(--color-border);
+}
+
+.option-name-input:focus {
+  border-bottom-color: var(--color-primary);
+}
+
+/* 對齊版（目前 Figma）：刪除鈕在左，固定項目縮排與自訂項目的勾選框對齊 */
+.send-methods--aligned .option-group--fixed {
+  padding-left: calc(var(--icon-button-size) + 10px);
+}
+
+/* ---------- 發送配置：共用標頭 ---------- */
+.combo-col {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 10px;
+  max-width: var(--content-max-width);
+}
+
+.combo-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--control-height);
+}
+
+.combo-head .select {
+  flex: 0 0 160px;
+}
+
+.combo-hint {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+}
+
+.combo-empty {
+  padding: 14px 12px;
+  font-size: var(--font-size-md);
+  color: var(--color-text-muted);
+}
+
+.combo-warn {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-danger);
+}
+
+/* ---------- 發送配置：清單樣式 ---------- */
+.combo-list {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.combo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.combo-item:last-child {
+  border-bottom: 0;
+}
+
+.combo-name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-main);
+}
+
+.combo-total {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.combo-item.is-off .combo-name,
+.combo-item.is-off .combo-total {
+  color: var(--color-text-muted);
+}
+
+/* ---------- RWD ---------- */
+@media (max-width: 600px) {
+  .select--preview {
+    flex: none;
+  }
+
+  .subsidy-col,
+  .combo-col {
+    max-width: none;
+  }
+}

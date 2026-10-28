@@ -1,0 +1,353 @@
+/* ==========================================================================
+   共用元件
+   命名規則：元件-子元素（kebab-case）、變體用 --modifier、狀態用 is-*
+   對應設計系統元件寫在各區塊標題（例：TextField、ButtonCom）
+   ========================================================================== */
+
+/* ---------- 金額輸入框（TextField - 請款金額） ---------- */
+.field {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  width: var(--field-width);
+  height: var(--control-height);
+  padding: 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  transition: border-color var(--transition-fast);
+}
+
+.field:focus-within {
+  border-color: var(--color-primary);
+}
+
+.field-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: var(--font-weight-regular) var(--font-size-lg) / var(--line-height-base) var(--font-family);
+  color: var(--color-text-main);
+}
+
+.field-suffix {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+}
+
+/* 佔滿內容欄寬度的文字欄位（例：項目名稱） */
+.field--block {
+  flex: 1 0 0;
+  width: auto;
+  min-width: 0;
+  max-width: var(--content-max-width);
+}
+
+.field-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* 字數（例：0/10） */
+.field-counter {
+  font-size: var(--font-size-sm);
+  line-height: 1.38;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.field.is-disabled {
+  background: var(--color-bg-disabled);
+}
+
+.field.is-disabled .field-input {
+  color: var(--color-text-muted);
+}
+
+.field.is-error {
+  border-color: var(--color-text-danger);
+}
+
+/* ---------- 下拉選單（SelectTopRadius） ---------- */
+.select {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+  height: var(--control-height);
+}
+
+.select-control {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: var(--control-height);
+  padding: 0 40px 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  background: var(--color-bg);
+  font: var(--font-weight-regular) var(--font-size-lg) / var(--line-height-base) var(--font-family);
+  color: var(--color-text-main);
+  cursor: pointer;
+}
+
+.select-control:focus {
+  border-color: var(--color-primary);
+}
+
+.select-control:disabled {
+  background: var(--color-bg-disabled);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* ---------- 圖示按鈕（Icon button / DeleteItem） ---------- */
+.icon-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-button-size);
+  height: var(--icon-button-size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  cursor: pointer;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: var(--color-icon-hover);
+}
+
+.icon-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ---------- 勾選框（checkbox/Checkbox） ---------- */
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.check-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.check-box {
+  display: block;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+}
+
+.check-box--off {
+  position: relative;
+}
+
+.check-box--off::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 1px;
+}
+
+.check-box--on {
+  display: none;
+}
+
+.check-input:checked ~ .check-box--off {
+  display: none;
+}
+
+.check-input:checked ~ .check-box--on {
+  display: block;
+}
+
+.check-input:focus-visible ~ .check-box {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* ---------- 單選（checkbox/Radio） ---------- */
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-icon {
+  display: block;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+}
+
+.radio-icon--on {
+  display: none;
+}
+
+.radio-input:checked ~ .radio-icon--off {
+  display: none;
+}
+
+.radio-input:checked ~ .radio-icon--on {
+  display: block;
+}
+
+.radio-input:focus-visible ~ .radio-icon {
+  border-radius: 50%;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* ---------- 圓角外框按鈕（ButtonRadius，用於「新增欄位」） ---------- */
+.btn-radius {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: var(--control-height);
+  padding: 8px 16px 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  font: var(--font-weight-medium) var(--font-size-lg) / var(--line-height-base) var(--font-family);
+  color: var(--color-text-main);
+  cursor: pointer;
+}
+
+.btn-radius:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.btn-radius:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-radius-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+/* 欄位數量（例：2/5） */
+.count {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+}
+
+/* ---------- 方角按鈕（ButtonCom） ---------- */
+.btn-com {
+  height: var(--control-height);
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  font: var(--font-weight-medium) var(--font-size-lg) / var(--line-height-base) var(--font-family);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn-com--outline {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text-main);
+}
+
+.btn-com--outline:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.btn-com--primary {
+  border: 1px solid var(--color-primary-strong);
+  background: var(--color-primary-strong);
+  color: var(--color-text-inverse);
+}
+
+.btn-com--primary:hover {
+  border-color: var(--color-primary-strong-hover);
+  background: var(--color-primary-strong-hover);
+}
+
+.btn-com:disabled {
+  background: var(--color-bg-disabled);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.btn-com:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 提示訊息 ---------- */
+.toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  max-width: calc(100% - 32px);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  background: var(--color-toast-bg);
+  font-size: var(--font-size-md);
+  color: var(--color-text-inverse);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity var(--transition-base);
+}
+
+.toast.is-visible {
+  opacity: 1;
+}
+
+/* ---------- RWD ---------- */
+@media (max-width: 600px) {
+  .field {
+    width: 130px;
+  }
+
+  .field--block {
+    flex: none;
+    align-self: stretch;
+    width: auto;
+    max-width: none;
+  }
+}
