@@ -17,7 +17,6 @@
   --color-text-danger: #f7595a;
   --color-text-inverse: #fff;
   --color-text-primary: #008381;          /* primary/maintext：說明文字 */
-  --color-text-strong: #212121;           /* 預覽頁數值 */
 
   /* ---------- 色彩：線條與背景 ---------- */
   --color-border: #c4c4c4;                /* 輸入框、外框按鈕 */
@@ -26,16 +25,17 @@
   --color-bg-disabled: #f7f7f7;
   --color-icon-hover: rgba(111, 121, 120, 0.08);
   --color-toast-bg: #333;
+  --color-paper-title: rgba(255, 255, 255, 0.8);   /* PagePaper 標題列（疊在品牌色上） */
 
   /* ---------- 字體 ---------- */
   --font-family: 'Noto Sans TC', sans-serif;
   --font-size-xs: 12px;
   --font-size-sm: 13px;
   --font-size-md: 14px;
-  --font-size-preview: 15px;              /* 預覽頁欄位名稱與數值 */
   --font-size-lg: 16px;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
+  --font-weight-bold: 700;
   --line-height-base: 1.5;
 
   /* ---------- 尺寸 ---------- */
@@ -52,6 +52,7 @@
   /* ---------- 圓角 ---------- */
   --radius-sm: 4px;
   --radius-md: 6px;
+  --radius-xl: 12px;
   --radius-pill: 999px;
 
   /* ---------- 動態 ---------- */

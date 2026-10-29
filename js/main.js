@@ -24,7 +24,7 @@
     const mode = document.querySelector(`input[name="applyMode"][value="${data.applyMode}"]`);
     if (mode) mode.checked = true;
     App.sendMethods.render(data.fixed, data.dynamic);
-    App.sendMode.render(data.sendMode || 'options');
+    App.sendMode.render(data.sendMode || 'fixed');
     App.combos.load(data.combo);
     App.combos.refresh();
   }
@@ -61,8 +61,7 @@
     }
 
     const methods = [...data.fixed, ...data.dynamic];
-    if (!methods.some(m => m.checked)) return data.sendMode === 'fixed' ? '請選擇一種發送方式' : '請至少勾選一種發送方式';
-    if (data.sendMode === 'fixed' && methods.filter(m => m.checked).length > 1) return '固定選項只能選擇一種發送方式';
+    if (!methods.some(m => m.checked)) return '請至少勾選一種發送方式';
     if (App.sendMethods.hasUnnamedChecked()) return '請填寫自訂欄位名稱';
     const names = methods.filter(m => m.checked).map(m => m.name);
     if (new Set(names).size !== names.length) return '發送方式名稱不可重複';

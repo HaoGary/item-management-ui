@@ -12,13 +12,13 @@
   const SUBSIDY_TARGETS = ['全體員工', '職工本人', '配偶', '子女', '父母'];
 
   const DEFAULTS = {
-    itemName: '',                         // 項目名稱（必填，最多 10 字）
+    itemName: '生日禮金',                 // 項目名稱（必填，最多 10 字）
     subsidy: [
       { target: '職工本人', amount: 6000 },
       { target: '子女', amount: 3000 },
     ],
     applyMode: 'auto',                    // self = 自行申請；auto = 公司統一發放
-    sendMode: 'options',                  // options = 選項分配；fixed = 固定選項（發送設定只能選一項）
+    sendMode: 'fixed',                    // fixed = 固定選項（預設，勾選項目合成唯一領取方式）；options = 選項分配
     fixed: [
       { id: 'cash', name: '現金', checked: true, amount: 3000 },
       { id: 'voucher', name: '喜鴻購物金', checked: true, amount: 3000 },

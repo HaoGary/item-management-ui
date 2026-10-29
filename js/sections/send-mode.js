@@ -1,8 +1,8 @@
 /**
  * 區塊：發送方式（選項分配／固定選項）
  * 決定「發送設定」與「發送配置」的可用方式：
- *   options（選項分配）：發送設定可複選，並顯示「發送配置」產生組合
- *   fixed（固定選項）  ：發送設定只能選一項，不顯示「發送配置」
+ *   options（選項分配）：發送設定可複選，並顯示「發送配置」，員工可從多種組合中選擇領取方式
+ *   fixed（固定選項）  ：發送設定可複選，不顯示「發送配置」，所有勾選項目合成唯一的領取方式
  */
 (function (App) {
   'use strict';
@@ -12,13 +12,11 @@
   let comboRow;
   let notifyChange = () => {};
 
-  const getValue = () => document.querySelector(`input[name="${NAME}"]:checked`)?.value || 'options';
+  const getValue = () => document.querySelector(`input[name="${NAME}"]:checked`)?.value || 'fixed';
 
-  /** 依目前模式套用：單選限制、顯示／隱藏發送配置 */
+  /** 依目前模式顯示／隱藏發送配置 */
   function apply() {
-    const fixed = getValue() === 'fixed';
-    App.sendMethods.setSingleSelect(fixed);
-    comboRow.hidden = fixed;
+    comboRow.hidden = getValue() === 'fixed';
   }
 
   App.sendMode = {

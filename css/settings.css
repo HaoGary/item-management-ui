@@ -2,27 +2,69 @@
    發放設定頁：補助對象與金額、發送方式、發送配置（清單樣式）
    ========================================================================== */
 
-/* ---------- 預覽頁（員工申請畫面） ---------- */
+/* ---------- 預覽頁（員工端的領取方式） ---------- */
 .preview-page[hidden],
 #settings[hidden] {
   display: none;
 }
 
-.preview-page .label {
-  font-size: var(--font-size-preview);
+/* 品牌色底 */
+.preview-stage {
+  padding: var(--page-padding-x);
+  background: var(--color-primary);
 }
 
-.select--preview {
-  flex: 0 0 240px;
+/* 卡片（設計系統 PagePaper）：標題列半透明白疊在品牌色上，內容為白底 */
+.paper {
+  overflow: hidden;
+  border-radius: var(--radius-xl);
 }
 
-.preview-value {
+.paper-title {
   display: flex;
   align-items: center;
-  width: 240px;
+  height: 50px;
+  margin: 0;
+  padding-left: var(--page-padding-x);
+  background: var(--color-paper-title);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 24px;
+  color: var(--color-text-main);
+}
+
+.paper-body {
+  padding: 10px var(--page-padding-x);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bg);
+}
+
+/* 固定選項：唯一的領取方式，只顯示文字 */
+.paper-value {
+  display: flex;
+  align-items: center;
+  min-height: var(--control-height);
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-main);
+}
+
+.paper-empty {
+  margin: 0;
+  padding: 10px 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text-muted);
+}
+
+/* 可換行的單選群組：每個選項高 40px，左右間距 24px */
+.radio-group--wrap {
+  flex-wrap: wrap;
+  gap: 0 24px;
+}
+
+.radio-group--wrap .radio {
   height: var(--control-height);
-  font-size: var(--font-size-preview);
-  color: var(--color-text-strong);
 }
 
 /* ---------- 發送方式（選項分配／固定選項） ---------- */
@@ -222,8 +264,14 @@
 
 /* ---------- RWD ---------- */
 @media (max-width: 600px) {
-  .select--preview {
-    flex: none;
+  .preview-stage {
+    padding: var(--page-padding-x-mobile);
+  }
+
+  .paper-title,
+  .paper-body {
+    padding-left: var(--page-padding-x-mobile);
+    padding-right: var(--page-padding-x-mobile);
   }
 
   .subsidy-col,

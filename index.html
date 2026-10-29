@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>發放設定</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -84,16 +84,16 @@
       <div class="mode-col">
         <div class="radio-group radio-group--control" role="radiogroup" aria-label="發送方式">
           <label class="radio">
-            <input type="radio" class="radio-input" name="sendMode" value="options" checked>
-            <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
-            <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
-            選項分配
-          </label>
-          <label class="radio">
-            <input type="radio" class="radio-input" name="sendMode" value="fixed">
+            <input type="radio" class="radio-input" name="sendMode" value="fixed" checked>
             <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
             <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
             固定選項
+          </label>
+          <label class="radio">
+            <input type="radio" class="radio-input" name="sendMode" value="options">
+            <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
+            <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
+            選項分配
           </label>
         </div>
         <p class="row-hint">此項目的設定將決定「發送設定」的可配置方式</p>
@@ -145,41 +145,13 @@
   </div>
 </form>
 
-<!-- 預覽頁：點擊「確認」後顯示員工申請畫面（Figma「預覽頁面」） -->
+<!-- 預覽頁：點擊「確認」後顯示員工端的領取方式選擇（Figma「預覽頁面」） -->
 <section class="preview-page" id="previewPage" hidden aria-label="預覽">
-  <div class="row">
-    <div class="row-inner">
-      <label class="label" for="pvItem">申請項目<span class="label-required">*</span></label>
-      <div class="select select--preview">
-        <select class="select-control" id="pvItem"></select>
-        <svg class="select-arrow" width="19.2" height="19.2"><use href="#i-dropdown"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="row-inner">
-      <label class="label" for="pvTarget">補助對象<span class="label-required">*</span></label>
-      <div class="select select--preview">
-        <select class="select-control" id="pvTarget"></select>
-        <svg class="select-arrow" width="19.2" height="19.2"><use href="#i-dropdown"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="row-inner">
-      <div class="label">請款金額</div>
-      <div class="preview-value" id="pvAmount"></div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="row-inner">
-      <label class="label" for="pvMethod">領取方式<span class="label-required">*</span></label>
-      <div class="select select--preview">
-        <select class="select-control" id="pvMethod"></select>
-        <svg class="select-arrow" width="19.2" height="19.2"><use href="#i-dropdown"/></svg>
+  <div class="preview-stage">
+    <div class="paper">
+      <h2 class="paper-title">領取方式</h2>
+      <div class="paper-body">
+        <div class="radio-group radio-group--wrap" id="pvMethods" role="radiogroup" aria-label="領取方式"></div>
       </div>
     </div>
   </div>

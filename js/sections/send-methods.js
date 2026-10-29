@@ -5,8 +5,7 @@
  * 每個項目有固定 id，發送配置以 id 記錄組合，改名不影響既有組合。
  *
  * 刪除鈕位置由 HTML 的 data-delete-position 決定：start = 左側（目前 Figma）；未設定則放右側
- *
- * 單選模式（發送方式＝固定選項）：同時只能勾選一項，勾選某項時自動取消其他項。
+
  */
 (function (App) {
   'use strict';
@@ -15,7 +14,6 @@
 
   let section, fixedGroup, dynamicGroup, addButton, counter;
   let notifyChange = () => {};
-  let singleSelect = false;
 
   const allRows = () => [...fixedGroup.children, ...dynamicGroup.children];
 
@@ -45,7 +43,7 @@
       check.appendChild(el('span', { className: 'option-name', textContent: name }));
     }
 
-    const field = App.amountField.create(amount);
+    const field = App.amountField.create(amount, { withComma: true });   // 千分位，例：1,000
     row.appendChild(field);
 
     if (editable) {
@@ -60,16 +58,7 @@
     }
 
     const checkbox = check.querySelector('.check-input');
-    checkbox.addEventListener('change', () => {
-      if (singleSelect && checkbox.checked) {
-        allRows().forEach(other => {
-          if (other === row) return;
-          other.querySelector('.check-input').checked = false;
-          syncRow(other);
-        });
-      }
-      syncRow(row);
-    });
+    checkbox.addEventListener('change', () => syncRow(row));
     syncRow(row);
     return row;
   }
@@ -116,21 +105,6 @@
       section.addEventListener('input', () => notifyChange());
       section.addEventListener('change', () => notifyChange());
       return true;
-    },
-    /**
-     * 切換單選模式。開啟時只保留第一個已勾選的項目。
-     * @param {boolean} on
-     */
-    setSingleSelect(on) {
-      singleSelect = on;
-      if (!on) return;
-      let kept = false;
-      allRows().forEach(row => {
-        const box = row.querySelector('.check-input');
-        if (box.checked && kept) box.checked = false;
-        if (box.checked) kept = true;
-        syncRow(row);
-      });
     },
     render(fixed, dynamic) {
       fixedGroup.replaceChildren(...fixed.map(o => createOption(o, false)));
