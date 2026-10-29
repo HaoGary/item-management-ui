@@ -1,14 +1,14 @@
 /**
- * 預覽頁：點擊「確認」後，呈現員工端看到的「領取方式」選擇（Figma「預覽頁面」）
- *   選項分配：列出生效中的發送組合，員工擇一領取
- *   固定選項：所有勾選項目合成唯一的領取方式，只顯示文字（不需選擇，無單選鈕）
- * 選項分配時第一個選項預設選取；「上一步」回到設定頁，設定內容保留。
+ * 預覽頁：點擊「確認」後，呈現員工端看到的「方案選擇」（Figma「預覽頁面」）
+ *   員工自選：顯示開放日期，並以單選列出生效中的方案組合（第一個預設選取）
+ *   固定選項：所有勾選項目合成唯一的方案，只顯示文字（不需選擇，無單選鈕）
+ * 「上一步」回到設定頁，設定內容保留。
  */
 (function (App) {
   'use strict';
   const { $, el } = App.utils;
 
-  let page, form, group, backButton;
+  let page, form, group, backButton, period, periodValue;
 
   function createRadio(label, checked) {
     const option = el('label', { className: 'radio' });
@@ -34,7 +34,9 @@
       form = $('settings');
       group = $('pvMethods');
       backButton = $('pvBack');
-      if (!page || !form || !group || !backButton) return false;
+      period = $('pvPeriod');
+      periodValue = $('pvPeriodValue');
+      if (!page || !form || !group || !backButton || !period || !periodValue) return false;
       backButton.addEventListener('click', () => {
         show(false);
         onBack?.();
@@ -44,6 +46,9 @@
 
     /** @param {object} data settingsForm.getValue() 的結果 */
     open(data) {
+      period.hidden = data.sendMode === 'fixed' || !data.openPeriod;
+      if (data.openPeriod) periodValue.textContent = App.dateRange.format(data.openPeriod);
+
       if (data.sendMode === 'fixed') {
         const label = [...data.fixed, ...data.dynamic].filter(m => m.checked).map(m => m.name).join('＋');
         group.replaceChildren(el('p', { className: 'paper-value', textContent: label }));
@@ -54,7 +59,7 @@
       const labels = data.combinations.map(c => c.names.join('＋'));
       group.replaceChildren(...(labels.length
         ? labels.map((label, i) => createRadio(label, i === 0))
-        : [el('p', { className: 'paper-empty', textContent: '尚無可選的領取方式' })]));
+        : [el('p', { className: 'paper-empty', textContent: '尚無可選的方案' })]));
       show(true);
     },
 

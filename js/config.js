@@ -18,7 +18,8 @@
       { target: '子女', amount: 3000 },
     ],
     applyMode: 'auto',                    // self = 自行申請；auto = 公司統一發放
-    sendMode: 'fixed',                    // fixed = 固定選項（預設，勾選項目合成唯一領取方式）；options = 選項分配
+    sendMode: 'fixed',                    // fixed = 固定選項（預設，勾選項目合成唯一方案）；options = 員工自選
+    openPeriod: { start: '2025-11-01', end: '2025-11-30' },   // 員工自選：開放方案選擇日期
     fixed: [
       { id: 'cash', name: '現金', checked: true, amount: 3000 },
       { id: 'voucher', name: '喜鴻購物金', checked: true, amount: 3000 },
@@ -26,7 +27,7 @@
     ],
     dynamic: [{ id: 'other-1', name: '其他1', checked: true, amount: 0 }],
     /**
-     * 發送配置
+     * 方案配置
      * configured：是否已點擊［配置］自動產生
      * size：每組項目數（數字或 'all'）
      * disabled：被取消勾選的自動組合（key）

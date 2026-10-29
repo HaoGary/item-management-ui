@@ -1,8 +1,8 @@
 /* ==========================================================================
-   發放設定頁：補助對象與金額、發送方式、發送配置（清單樣式）
+   發放設定頁：項目名稱、補助對象與金額、發送方式、發送方案、方案配置、預覽頁
    ========================================================================== */
 
-/* ---------- 預覽頁（員工端的領取方式） ---------- */
+/* ---------- 預覽頁（員工端的方案選擇） ---------- */
 .preview-page[hidden],
 #settings[hidden] {
   display: none;
@@ -34,12 +34,15 @@
 }
 
 .paper-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 10px var(--page-padding-x);
   border-bottom: 1px solid var(--color-line);
   background: var(--color-bg);
 }
 
-/* 固定選項：唯一的領取方式，只顯示文字 */
+/* 固定選項：唯一的方案，只顯示文字 */
 .paper-value {
   display: flex;
   align-items: center;
@@ -48,6 +51,33 @@
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-main);
+}
+
+/* 員工自選：開放日期 */
+.paper-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--control-height);
+  margin: 0;
+  font-size: var(--font-size-md);
+}
+
+.paper-meta[hidden] {
+  display: none;
+}
+
+.paper-meta-label {
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.paper-meta-value {
+  color: var(--color-text-main);
+}
+
+.paper-meta-note {
+  color: var(--color-text-muted);
 }
 
 .paper-empty {
@@ -67,13 +97,30 @@
   height: var(--control-height);
 }
 
-/* ---------- 發送方式（選項分配／固定選項） ---------- */
+/* ---------- 發送方式（固定選項／員工自選） ---------- */
 .mode-col {
   display: flex;
   flex: 1 0 0;
   flex-direction: column;
   gap: 10px;
   min-width: 0;
+}
+
+/* 員工自選：多了日期欄位，與說明文字間距加大 */
+.mode-col--expanded {
+  gap: 20px;
+}
+
+/* 單選＋日期區間，空間不足時換行 */
+.mode-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.mode-controls .radio-group {
+  padding-right: 20px;
 }
 
 /* 與輸入框同高，讓單選與左側欄位名稱垂直置中對齊 */
@@ -185,7 +232,7 @@
   padding-left: calc(var(--icon-button-size) + 10px);
 }
 
-/* ---------- 發送配置：共用標頭 ---------- */
+/* ---------- 方案配置：共用標頭 ---------- */
 .combo-col {
   display: flex;
   flex: 1 0 0;
@@ -224,7 +271,7 @@
   color: var(--color-text-danger);
 }
 
-/* ---------- 發送配置：清單樣式 ---------- */
+/* ---------- 方案配置：清單樣式 ---------- */
 .combo-list {
   border: 1px solid var(--color-line);
   border-radius: var(--radius-sm);

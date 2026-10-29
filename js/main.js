@@ -25,6 +25,7 @@
     if (mode) mode.checked = true;
     App.sendMethods.render(data.fixed, data.dynamic);
     App.sendMode.render(data.sendMode || 'fixed');
+    App.dateRange.render(data.openPeriod || null);
     App.combos.load(data.combo);
     App.combos.refresh();
   }
@@ -35,7 +36,8 @@
       itemName: App.itemName.getValue(),
       subsidy: App.subsidy.getValue(),
       applyMode: document.querySelector('input[name="applyMode"]:checked')?.value,
-      sendMode: App.sendMode.getValue(),        // options = 選項分配；fixed = 固定選項
+      sendMode: App.sendMode.getValue(),        // fixed = 固定選項；options = 員工自選
+      openPeriod: App.sendMode.isFixed() ? null : App.dateRange.getValue(),   // 員工自選：開放方案選擇日期
       fixed,
       dynamic,
       combinations: App.sendMode.isFixed() ? [] : App.combos.getActive(),   // 實際生效的組合（固定選項沒有組合）
@@ -58,6 +60,11 @@
     if (zeroFields.length) {
       zeroFields.forEach(f => f.classList.add('is-error'));
       return '請輸入補助金額';
+    }
+
+    if (data.sendMode === 'options' && !data.openPeriod) {
+      App.dateRange.markError();
+      return '請選擇開放方案選擇日期';
     }
 
     const methods = [...data.fixed, ...data.dynamic];
@@ -106,6 +113,7 @@
       && App.subsidy.init()
       && App.sendMethods.init({ onChange: () => App.combos.refresh() })
       && App.sendMode.init({ onChange: () => App.combos.refresh() })
+      && App.dateRange.init('openPeriod')
       && App.combos.init({ view })
       && App.previewPage.init();
     if (!ready) {

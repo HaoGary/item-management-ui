@@ -317,6 +317,141 @@
   outline-offset: 2px;
 }
 
+/* ---------- 小型按鈕（日期面板） ---------- */
+.btn-sm {
+  min-width: 64px;
+  height: var(--control-height-sm);
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  font: var(--font-weight-medium) var(--font-size-md) var(--font-family);
+  cursor: pointer;
+}
+
+.btn-sm--ghost {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text-main);
+}
+
+.btn-sm--primary {
+  border: 1px solid var(--color-primary-strong);
+  background: var(--color-primary-strong);
+  color: var(--color-text-inverse);
+}
+
+/* ---------- 日期區間（DatePickerComBox） ---------- */
+.date-range {
+  position: relative;
+  width: 240px;
+}
+
+.date-range[hidden] {
+  display: none;
+}
+
+.date-range-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--control-height);
+  padding: 0 4px 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  font: var(--font-weight-regular) var(--font-size-lg) / 24px var(--font-family);
+  color: var(--color-text-main);
+  text-align: left;
+  cursor: pointer;
+}
+
+.date-range-field:focus-visible,
+.date-range-field.is-open {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.date-range-field.is-error {
+  border-color: var(--color-text-danger);
+}
+
+/* 浮動標籤：壓在外框上緣 */
+.date-range-label {
+  position: absolute;
+  top: -10px;
+  left: 11px;
+  padding: 0 4px;
+  background: var(--color-bg);
+  font-size: var(--font-size-xs);
+  line-height: 16px;
+  color: var(--color-text-main);
+}
+
+.date-range-value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date-range-value.is-placeholder {
+  color: var(--color-text-muted);
+}
+
+.date-range-icon {
+  flex-shrink: 0;
+  margin: 0 5.4px;
+}
+
+.date-range-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-panel);
+}
+
+.date-range-panel[hidden] {
+  display: none;
+}
+
+.date-range-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.date-range-input {
+  height: var(--control-height-sm);
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font: var(--font-weight-regular) var(--font-size-md) var(--font-family);
+  color: var(--color-text-main);
+}
+
+.date-range-input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.date-range-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 /* ---------- 提示訊息 ---------- */
 .toast {
   position: fixed;

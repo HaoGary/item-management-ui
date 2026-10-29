@@ -16,6 +16,7 @@
   <script src="js/utils.js" defer></script>
   <script src="js/config.js" defer></script>
   <script src="js/components/amount-field.js" defer></script>
+  <script src="js/components/date-range.js" defer></script>
   <script src="js/sections/item-name.js" defer></script>
   <script src="js/sections/subsidy.js" defer></script>
   <script src="js/sections/send-methods.js" defer></script>
@@ -77,34 +78,53 @@
     </div>
   </section>
 
-  <!-- 發送方式：決定「發送設定」與「發送配置」的可用方式 -->
+  <!-- 發送方式：決定「發送方案」與「方案配置」的可用方式 -->
   <section class="row">
     <div class="row-inner row-inner--top">
       <div class="label">發送方式<span class="label-required">*</span></div>
       <div class="mode-col">
-        <div class="radio-group radio-group--control" role="radiogroup" aria-label="發送方式">
-          <label class="radio">
-            <input type="radio" class="radio-input" name="sendMode" value="fixed" checked>
-            <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
-            <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
-            固定選項
-          </label>
-          <label class="radio">
-            <input type="radio" class="radio-input" name="sendMode" value="options">
-            <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
-            <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
-            選項分配
-          </label>
+        <div class="mode-controls">
+          <div class="radio-group radio-group--control" role="radiogroup" aria-label="發送方式">
+            <label class="radio">
+              <input type="radio" class="radio-input" name="sendMode" value="fixed" checked>
+              <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
+              <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
+              固定選項
+            </label>
+            <label class="radio">
+              <input type="radio" class="radio-input" name="sendMode" value="options">
+              <svg class="radio-icon radio-icon--off"><use href="#i-radio-off"/></svg>
+              <svg class="radio-icon radio-icon--on"><use href="#i-radio-on"/></svg>
+              員工自選
+            </label>
+          </div>
+
+          <!-- 員工自選時：開放方案選擇的日期區間 -->
+          <div class="date-range" id="openPeriod" hidden>
+            <button type="button" class="date-range-field" aria-haspopup="dialog" aria-expanded="false">
+              <span class="date-range-label">開放方案選擇日期</span>
+              <span class="date-range-value"></span>
+              <svg class="date-range-icon" width="19.2" height="19.2"><use href="#i-calendar"/></svg>
+            </button>
+            <div class="date-range-panel" role="dialog" aria-label="選擇開放日期" hidden>
+              <label class="date-range-row">開始日期<input type="date" class="date-range-input" data-role="start"></label>
+              <label class="date-range-row">結束日期<input type="date" class="date-range-input" data-role="end"></label>
+              <div class="date-range-actions">
+                <button type="button" class="btn-sm btn-sm--ghost" data-role="clear">清除</button>
+                <button type="button" class="btn-sm btn-sm--primary" data-role="apply">確定</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="row-hint">此項目的設定將決定「發送設定」的可配置方式</p>
+        <p class="row-hint">此項目的設定將決定「方案配置」的可配置方式</p>
       </div>
     </div>
   </section>
 
-  <!-- 發送設定（刪除鈕在左） -->
+  <!-- 發送方案（刪除鈕在左） -->
   <section class="row" id="sendRow">
     <div class="row-inner row-inner--top">
-      <div class="label">發送設定<span class="label-required">*</span></div>
+      <div class="label">發送方案<span class="label-required">*</span></div>
       <div class="send-methods send-methods--aligned">
         <div class="option-group option-group--fixed" id="fixedGroup"></div>
         <div class="option-group">
@@ -121,10 +141,10 @@
     </div>
   </section>
 
-  <!-- 發送配置（清單樣式；發送方式＝固定選項時隱藏） -->
+  <!-- 方案配置（清單樣式；發送方式＝固定選項時隱藏） -->
   <section class="row" id="comboRow">
     <div class="row-inner row-inner--top">
-      <div class="label">發送配置</div>
+      <div class="label">方案配置</div>
       <div class="combo-col">
         <div class="combo-head">
           <div class="select">
@@ -145,13 +165,17 @@
   </div>
 </form>
 
-<!-- 預覽頁：點擊「確認」後顯示員工端的領取方式選擇（Figma「預覽頁面」） -->
+<!-- 預覽頁：點擊「確認」後顯示員工端的方案選擇（Figma「預覽頁面」） -->
 <section class="preview-page" id="previewPage" hidden aria-label="預覽">
   <div class="preview-stage">
     <div class="paper">
-      <h2 class="paper-title">領取方式</h2>
+      <h2 class="paper-title">方案選擇</h2>
       <div class="paper-body">
-        <div class="radio-group radio-group--wrap" id="pvMethods" role="radiogroup" aria-label="領取方式"></div>
+        <p class="paper-meta" id="pvPeriod" hidden>
+          <span class="paper-meta-label">開放日期：</span>
+          <span class="paper-meta-value"><span id="pvPeriodValue"></span><span class="paper-meta-note">（開放修改期間內皆可編輯）</span></span>
+        </p>
+        <div class="radio-group radio-group--wrap" id="pvMethods" role="radiogroup" aria-label="方案選擇"></div>
       </div>
     </div>
   </div>

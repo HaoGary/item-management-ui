@@ -11,24 +11,25 @@ Project Management/
 ├── css/
 │   ├── variables.css      設計變數（色彩、字體、尺寸、圓角、陰影、動態）
 │   ├── base.css           全域基礎樣式
-│   ├── components.css     共用元件：金額欄位、下拉、勾選、單選、按鈕、提示
+│   ├── components.css     共用元件：金額欄位、下拉、勾選、單選、按鈕、日期區間、提示
 │   ├── layout.css         表單列、欄位名稱、底部操作列
-│   └── settings.css       頁面區塊：項目名稱、補助對象、發送方式、發送設定、發送配置、預覽頁
+│   └── settings.css       頁面區塊：項目名稱、補助對象、發送方式、發送方案、方案配置、預覽頁
 └── js/
     ├── icons.js           SVG 圖示 sprite
     ├── utils.js           共用工具與小元件（勾選框、圖示按鈕、toast）
     ├── config.js          常數與預設資料（DEFAULTS）
     ├── components/
-    │   └── amount-field.js 金額輸入框
+    │   ├── amount-field.js 金額輸入框
+    │   └── date-range.js   日期區間（開放方案選擇日期）
     ├── sections/
     │   ├── item-name.js    項目名稱
     │   ├── subsidy.js      補助對象與金額
-    │   ├── send-mode.js    發送方式（選項分配／固定選項）
-    │   ├── send-methods.js 發送設定（各發送項目與金額）
-    │   ├── combos.js       發送配置：狀態、組合計算、項目數選單、［配置］
-    │   └── preview-page.js 預覽頁（員工端的領取方式選擇）
+    │   ├── send-mode.js    發送方式（固定選項／員工自選）
+    │   ├── send-methods.js 發送方案（各發送項目與金額）
+    │   ├── combos.js       方案配置：狀態、組合計算、項目數選單、［配置］
+    │   └── preview-page.js 預覽頁（員工端的方案選擇）
     ├── views/
-    │   └── combo-list.js   發送配置的清單呈現
+    │   └── combo-list.js   方案配置的清單呈現
     └── main.js             進入點：驗證、確認／取消、初始化
 ```
 
@@ -45,12 +46,14 @@ Project Management/
 
 ## 發送方式的兩種模式
 
-- **固定選項**（預設）：發送設定同樣可複選，隱藏「發送配置」；所有勾選項目合成唯一的領取方式（例：現金＋喜鴻購物金＋咖啡廳兌換券），預覽頁直接以文字顯示（無單選鈕）
-- **選項分配**：發送設定可複選，並顯示「發送配置」；預覽頁以單選列出生效中的組合
+- **固定選項**（預設）：發送方案可複選，隱藏「方案配置」與開放日期；所有勾選項目合成唯一的方案，預覽頁直接以文字顯示（無單選鈕）
+- **員工自選**：發送方案可複選，顯示「開放方案選擇日期」與「方案配置」；預覽頁顯示開放日期，並以單選列出生效中的方案組合
 
 點擊「確認」→ 驗證通過 → 觸發 `settings:submit` → 顯示預覽頁；預覽頁「上一步」回到設定頁。
 
-送出資料中的 `sendMode` 為 `options` 或 `fixed`；固定選項時 `combinations` 為空陣列，領取內容即 `fixed`／`dynamic` 中 `checked: true` 的項目。
+送出資料：`sendMode` 為 `fixed`（固定選項）或 `options`（員工自選）；
+`openPeriod` 為 `{ start, end }`（`YYYY-MM-DD`，固定選項時為 `null`）；
+固定選項時 `combinations` 為空陣列，方案內容即 `fixed`／`dynamic` 中 `checked: true` 的項目。
 
 ## 常見調整
 

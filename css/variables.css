@@ -55,6 +55,9 @@
   --radius-xl: 12px;
   --radius-pill: 999px;
 
+  /* ---------- 陰影 ---------- */
+  --shadow-panel: 0 4px 16px rgba(0, 0, 0, 0.12);
+
   /* ---------- 動態 ---------- */
   --transition-fast: 0.15s;
   --transition-base: 0.2s;

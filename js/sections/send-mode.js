@@ -1,30 +1,35 @@
 /**
- * 區塊：發送方式（選項分配／固定選項）
- * 決定「發送設定」與「發送配置」的可用方式：
- *   options（選項分配）：發送設定可複選，並顯示「發送配置」，員工可從多種組合中選擇領取方式
- *   fixed（固定選項）  ：發送設定可複選，不顯示「發送配置」，所有勾選項目合成唯一的領取方式
+ * 區塊：發送方式（固定選項／員工自選）
+ * 決定「發送方案」與「方案配置」的可用方式：
+ *   fixed（固定選項）  ：發送方案可複選，不顯示「方案配置」，所有勾選項目合成唯一的方案
+ *   options（員工自選）：發送方案可複選，顯示「方案配置」與「開放方案選擇日期」，員工於期間內自選方案
  */
 (function (App) {
   'use strict';
   const { $ } = App.utils;
 
   const NAME = 'sendMode';
-  let comboRow;
+  let comboRow, periodBox, controls;
   let notifyChange = () => {};
 
   const getValue = () => document.querySelector(`input[name="${NAME}"]:checked`)?.value || 'fixed';
 
-  /** 依目前模式顯示／隱藏發送配置 */
+  /** 依目前模式顯示／隱藏：方案配置、開放日期 */
   function apply() {
-    comboRow.hidden = getValue() === 'fixed';
+    const fixed = getValue() === 'fixed';
+    comboRow.hidden = fixed;
+    periodBox.hidden = fixed;
+    controls.closest('.mode-col').classList.toggle('mode-col--expanded', !fixed);
   }
 
   App.sendMode = {
     /** @param {{ onChange: Function }} options 模式切換後呼叫 */
     init({ onChange }) {
       comboRow = $('comboRow');
+      periodBox = $('openPeriod');
+      controls = document.querySelector('.mode-controls');
       const radios = document.querySelectorAll(`input[name="${NAME}"]`);
-      if (!comboRow || !radios.length) return false;
+      if (!comboRow || !periodBox || !controls || !radios.length) return false;
       notifyChange = onChange;
       radios.forEach(r => r.addEventListener('change', () => {
         apply();
